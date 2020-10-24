@@ -9,11 +9,12 @@ p = "раб"
 def find_all_rabin_karp(text, pattern):
     result = []
     patternsum = sum(ord(s) for s in pattern)
+    textwindowsum = sum(ord(text[i]) for i in range(len(pattern)))
     for n in range(len(text) - len(pattern) + 1):
-        textwindowsum = sum(ord(text[i+n]) for i in range(len(pattern)))
         if textwindowsum == patternsum:
             if text.startswith(pattern, n):
                 result.append(n)
+        if n < (len(text) - len(pattern)):
+            textwindowsum = textwindowsum - ord(text[n]) + ord(text[n + len(pattern)])
     return result
-
 print(find_all_rabin_karp(t, p))
